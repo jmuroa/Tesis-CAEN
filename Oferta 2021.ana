@@ -1,0 +1,104 @@
+{ Analytica Model Demanda_2021, encoding="UTF-8" }
+SoftwareVersion 6.0.10
+
+
+{ System Variables with non-default values: }
+SampleSize := 1000
+TypeChecking := 1
+Checking := 1
+SaveOptions := 2
+SaveValues := 0
+
+{!-50299|DiagramColor Model: 65535,65535,65535}
+{!-50299|DiagramColor Module: 65535,65535,65535}
+{!-50299|DiagramColor LinkModule: 65535,65535,65535}
+{!-50299|DiagramColor Library: 65535,65535,65535}
+{!-50299|DiagramColor LinkLibrary: 65535,65535,65535}
+{!-50299|DiagramColor Form: 65535,65535,65535}
+NodeInfo FormNode: 1,0,0,,0,0,,,,0,,,0
+{!-50299|NodeColor Text: 62258,62258,62258}
+
+{!-60000|Attribute AcpStyles}
+
+
+Model Demanda_2021
+Author: Jorge Muro
+Date: dom., Dic. 12, 2021 7:09 p.Â m.
+DiagState: 2,0,0,752,376,17
+DiagramColor: 53199,53199,53199
+FontStyle: Arial,15
+FileInfo: 0,Model Demanda_2021,2,2,0,0,D:\DATA JORGE\Documents\CAEN\Tesis\Oferta 2021.ana
+
+Index Fecha
+Title: Fecha
+Definition: [1-Jan-2021,1-Feb-2021,1-Mar-2021,1-Apr-2021,1-May-2021,1-Jun-2021,1-Jul-2021,1-Aug-2021,1-Sep-2021,1-Oct-2021,1-Nov-2021,1-Dec-2021]
+NodeLocation: 688,80,1
+NodeSize: 64,24
+
+Variable Bases_RL
+Att_PrevIndexValue: ['Intercepto','Pendiente']
+Title: Bases RL
+Definition: Table(Self)(1,Mes)
+IndexVals: ['Intercepto','Pendiente']
+NodeLocation: 80,120,1
+NodeSize: 64,24
+ReformDef: [Undefined,Self]
+
+Variable Coeficientes_de_regr
+Title: Coeficientes de regresión
+Definition: Regression(Produccion_anual,Bases_RL,Mes,Bases_RL)
+NodeLocation: 232,120,1
+NodeSize: 64,24
+ValueState: 2,308,314,416,303,,MIDM
+{!40700|Att_CellFormat: CellFormats(CellSpan(Bases_RL,CellNumberFormat('Fixed Point',1,0,0,dateFormat:'ABBREV',fullPrecision:0,numbersAsDates:0,datesAsNumbers:0,digits_:4,zeroes_:1),2,header:0),CellSpan(Bases_RL,CellNumberFormat('Fixed Point',2,1,1,dateFormat:'ABBREV',fullPrecision:0,numbersAsDates:0,datesAsNumbers:0,digits_:4,zeroes_:2),1,header:0))}
+
+Variable Linea_RL
+Title: Línea RL
+Definition: sum(Bases_RL*Coeficientes_de_regr,Bases_RL)
+NodeLocation: 232,184,1
+NodeSize: 64,24
+ValueState: 2,148,154,416,303,1,MIDM
+NumberFormat: 2,F,4,0,1,0,4,1,$,0,"ABBREV",0,,,0,0,15,
+
+Objective Comparacion_datos_y_
+Title: Comparación datos y RL
+Definition: [Produccion_anual,Linea_RL]
+NodeLocation: 400,128,1
+NodeSize: 72,24
+NodeInfo: 1,,,,,,1
+ValueState: 2,196,202,509,356,0,MIDM
+NodeColor: 39321,1,1
+NodeFont: Arial Rounded MT Bold,16
+ReformVal: [Self,Mes]
+NodeFontColor: 65535,65535,65535
+
+Variable Coeficiente_de_deter
+Title: Coeficiente de determinación R2
+Definition: Correlation(Produccion_anual, Linea_RL, Mes)
+NodeLocation: 232,256,1
+NodeSize: 72,32
+NodeInfo: 1,,,,,,1
+ValueState: 2,260,266,416,303,,MIDM
+NodeColor: 3,39321,1
+NodeFont: Arial Rounded MT Bold,15
+NumberFormat: 2,%,4,2,0,0,4,0,$,0,"ABBREV",0,,,0,0,15,
+NodeFontColor: 65535,65535,65535
+
+Variable Produccion_anual
+Title: Producción anual
+Definition: Table(Mes)(4688,4274,4765,4474,4668,4575,4611,4698,4588,4742,4653,4697.5)
+NodeLocation: 400,208,1
+NodeSize: 64,24
+NodeColor: 65535,42597,19661
+NumberFormat: 2,F,4,0,1,0,4,1,$,0,"ABBREV",0,,,0,0,15,
+Att__TotalsIndex: [Mes]
+
+Index Mes
+Att_PrevIndexValue: [1,2,3,4,5,6,7,8,9,10,11,12]
+Title: Mes
+Definition: 1..12
+NodeLocation: 80,192,1
+NodeSize: 64,24
+
+Close Demanda_2021
+
